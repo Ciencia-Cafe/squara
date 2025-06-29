@@ -24,6 +24,12 @@ if [ ! -f res/ttf/FiraCode-Medium.ttf ]; then
     cd ..
 fi
 
+# Parse test
+if [ "$1" = "parser" ]; then
+    gcc parser.c -o parser
+    exit
+fi
+
 # Some window managers don't use the XDG protocol, handle this latter
 if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
     gcc main.c lib/libraylib.a -lm -lGL -lpthread -ldl -lrt -o squara
