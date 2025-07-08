@@ -1,3 +1,6 @@
+#ifndef _STACK_H
+#define _STACK_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -13,6 +16,13 @@ typedef struct {
     void *buffer;
 }Stack;
 
+Stack StackInit(size_t nmemb, size_t size);
+void StackPush(Stack *stack, void* member);
+void* StackPop(Stack *stack);
+void StackClean(Stack *stack);
+void StackFree(Stack *stack);
+
+// Implementation
 Stack StackInit(size_t nmemb, size_t size) {
     Stack new_stack = {
         .n = nmemb,
@@ -30,6 +40,7 @@ Stack StackInit(size_t nmemb, size_t size) {
 void StackPush(Stack *stack, void* member) {
     if(stack->head < stack->size) {
         void *pos = stack->buffer + stack->member_size * stack->head;
+        printf("pos ptr: %p\n", pos);
         memcpy(pos, member, stack->member_size);
         stack->head++;
     } else if (stack->in_heap) {
@@ -86,3 +97,5 @@ int main(void) {
     StackFree(&int_stack);
 }
 #endif /* STACK_TEST */
+
+#endif /* _STACK_H */
